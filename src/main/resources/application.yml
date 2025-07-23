@@ -1,0 +1,38 @@
+# application.yml
+
+spring:
+  application:
+    name: task-managment         # Spring Boot application name
+  datasource:
+    url: jdbc:h2:mem:taskdb     # in-memory H2 database URL
+    driver-class-name: org.h2.Driver  # H2 JDBC driver class
+    username: sa                # default H2 username
+    password:                   # no password required
+  jpa:
+    hibernate:
+      ddl-auto: update          # auto-create/update schema based on entities
+    show-sql: true              # log generated SQL statements
+  h2:
+    console:
+      enabled: true             # enable H2 web console
+      path: /h2-console         # URL path for the H2 console
+
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: 66f0pjin35tgb4qbm7c4beqg5h
+            client-secret: <client secret>
+            scope:
+              - phone
+              - openid
+              - email
+            # Spring Security by default uses a redirect-uri in the format: {baseUrl}/login/oauth2/code/{registrationId}
+            # For example: http://localhost:8080/login/oauth2/code/cognito
+            # See more: https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-redirect-uri
+            redirect-uri: https://d84l1y8p4kdic.cloudfront.net
+        provider:
+          cognito:
+            issuerUri: https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_exRBrIkjw
+            user-name-attribute: username
